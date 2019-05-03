@@ -1,25 +1,31 @@
+import java.util.Objects;
+
 public class Contacto {
     private final String nombre;
-    private final int numero;
-    private final TiposNumero tipo;
-    private final String correo;
+    private final String numero;
+    private final String tipo;
+    private String correo;
 
-    public Contacto(String nombre, int numero, TiposNumero tipo, String correo) {
+    public Contacto(String nombre, String numero, String tipo, String correo) {
         this.nombre = nombre;
         this.numero = numero;
         this.tipo = tipo;
         this.correo = correo;
     }
 
+    public Contacto(String nombre, String numero, String tipo){
+        this(nombre,numero,tipo,null);
+    }
+
     public String getNombre() {
         return nombre;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public TiposNumero getTipo() {
+    public String getTipo() {
         return tipo;
     }
 
@@ -35,13 +41,37 @@ public class Contacto {
                 ", correo='" + correo;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Contacto contacto = (Contacto) o;
+        return Objects.equals(nombre, contacto.nombre) &&
+                Objects.equals(numero, contacto.numero) &&
+                Objects.equals(tipo, contacto.tipo) &&
+                Objects.equals(correo, contacto.correo);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(nombre, numero, tipo, correo);
+    }
+
     public String info() {
-        return nombre + " con número de " + tipo + ": " + numero;
+
+        if (correo==null){
+
+            return nombre + " con número de " + tipo + ": " + numero;
+
+        } else {
+
+            return nombre + " con número de " + tipo + ": " + numero + " y su correo es: " + correo;
+
+        }
+
     }
 
     public static void main(String[] args) {
-        Contacto contacto1=new Contacto("Contacto 1", 963845235, TiposNumero.MOVIL.getTipo(), "correo1@gmail.com");
 
-        System.out.println(contacto1.info());
     }
 }

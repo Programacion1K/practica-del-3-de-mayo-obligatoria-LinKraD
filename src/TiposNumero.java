@@ -1,5 +1,5 @@
 public enum TiposNumero {
-    FAX("Fax"), FIJO("Telefono fijo"), MOVIL("Telefono movil");
+    FAX("fax"), FIJO("telefono fijo"), MOVIL("telefono movil");
 
     private final String tipo;
 
