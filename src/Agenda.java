@@ -8,68 +8,49 @@ import java.util.stream.Collectors;
 
 public class Agenda {
     private String nombre;
-    private Map<Contacto, List<Item>> listaContactos=new Map<Contacto, List<Item>>() {
-        @Override
-        public int size() {
-            return 0;
+    private Map<Contacto, List<Item>> listaContactos=new TreeMap<>();
+
+    Agenda(String nombre){
+        this.nombre = nombre;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+
+    public void setNombre(String nombre){
+        this.nombre = nombre;
+    }
+
+    public void anyadirContacto(Contacto nuevoContacto){
+        listaContactos.put(nuevoContacto,new ArrayList<>());
+    }
+
+    public void anyadirContacto(Contacto nuevoContacto, ArrayList<Item> listaItem){
+        listaContactos.put(nuevoContacto,listaItem);
+    }
+
+    public List<Item> listaDeItems(Contacto c){
+        return listaContactos.get(c);
+    }
+    public String lista(){
+        String salida="";
+        for (Contacto c:listaContactos.keySet()) {
+            salida+=c.info()+": ";
+            for (Item i: listaDeItems(c)) {
+                salida+=i.info()+", ";
+            }
+            salida+="\n";
         }
+        return salida;
+    }
 
-        @Override
-        public boolean isEmpty() {
-            return false;
+    public void anyadirItem(Contacto contacto, Item item){
+        try {
+            listaContactos.get(contacto).add(item);
+        } catch (NullPointerException e){
+            throw new NullPointerException("Contacto inexistente.");
         }
-
-        @Override
-        public boolean containsKey(Object key) {
-            return false;
-        }
-
-        @Override
-        public boolean containsValue(Object value) {
-            return false;
-        }
-
-        @Override
-        public List<Item> get(Object key) {
-            return null;
-        }
-
-        @Override
-        public List<Item> put(Contacto key, List<Item> value) {
-            return null;
-        }
-
-        @Override
-        public List<Item> remove(Object key) {
-            return null;
-        }
-
-        @Override
-        public void putAll(Map<? extends Contacto, ? extends List<Item>> m) {
-
-        }
-
-        @Override
-        public void clear() {
-
-        }
-
-        @Override
-        public Set<Contacto> keySet() {
-            return null;
-        }
-
-        @Override
-        public Collection<List<Item>> values() {
-            return null;
-        }
-
-        @Override
-        public Set<Entry<Contacto, List<Item>>> entrySet() {
-            return null;
-        }
-    };
-
-
+    }
 
 }

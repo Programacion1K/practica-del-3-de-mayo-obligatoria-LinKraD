@@ -70,8 +70,4 @@ public class Contacto {
         }
 
     }
-
-    public static void main(String[] args) {
-
-    }
 }
